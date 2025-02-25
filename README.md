@@ -80,7 +80,7 @@ La aplicación se integra con una API externa para obtener el gentilicio (demony
    }
    ```
 
-```markdown
+
 ## Endpoints y Operaciones CRUD
 
 ### GET /customers/all
@@ -119,7 +119,6 @@ La aplicación se integra con una API externa para obtener el gentilicio (demony
           }
       ]
   }
-  ```
 - **Errores Comunes:**
   - 500 Internal Server Error si ocurre algún fallo en el servidor.
 
@@ -341,8 +340,8 @@ La aplicación se integra con una API externa para obtener el gentilicio (demony
 - **Errores Comunes:**
   - 404 Not Found si no se encuentra un cliente con el ID indicado.
   - 400 Bad Request si el formato del ID es inválido.
+    
 ```
-
 ## Configuración y Despliegue
 
 ### Requisitos Previos
