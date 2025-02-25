@@ -31,18 +31,19 @@ La solución se estructura en las siguientes capas:
 
 ```mermaid
 graph TD
-    A[Cliente (Consumidor de API)]
-    B[CustomerResources (Endpoints REST)]
-    C[CustomerService (Lógica de Negocio)]
-    D[CustomerRepository (Acceso a BD)]
-    E[CountryClient (Integración API Externa)]
-    F[Base de Datos PostgreSQL]
+    A["Cliente (Consumidor de API)"]
+    B["CustomerResources (Endpoints REST)"]
+    C["CustomerService (Lógica de Negocio)"]
+    D["CustomerRepository (Acceso a BD)"]
+    E["CountryClient (Integración API Externa)"]
+    F["Base de Datos PostgreSQL"]
     
     A --> B
     B --> C
     C --> D
     C --> E
     D --> F
+
 ```
 
 ```markdown
@@ -458,5 +459,3 @@ La solución desarrollada cumple con los requisitos funcionales y no funcionales
 
 ---
 ```
-
-Puedes copiar este contenido y guardarlo como `README.md` en tu proyecto. ¡Éxito con tu desarrollo!
