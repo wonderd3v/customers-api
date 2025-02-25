@@ -395,25 +395,71 @@ tasks.withType(JavaCompile).configureEach {
 }
 ```
 
-### Despliegue
+```markdown
+## Requisitos de Instalación y Ejecución
 
-1. **Compilación y Empaquetado:**  
+Para poder correr este proyecto, asegúrate de tener instalado y configurado lo siguiente:
+
+- **Java Development Kit (JDK):**  
+  Se recomienda instalar JDK 21 (o la versión configurada en el toolchain). Puedes descargarlo desde [Oracle](https://www.oracle.com/java/technologies/javase-downloads.html) o [OpenJDK](https://openjdk.java.net/install/).
+
+- **Gradle:**  
+  El proyecto utiliza Gradle como herramienta de construcción. Si no tienes Gradle instalado globalmente, puedes utilizar el wrapper incluido en el proyecto (`./gradlew` en Unix o `gradlew.bat` en Windows).
+
+- **PostgreSQL:**  
+  Una instancia de PostgreSQL en ejecución es necesaria para la base de datos.  
+  - **Configuración:**  
+    - Crea una base de datos (por defecto se espera una base de datos llamada `customers`).
+    - Asegúrate de que las credenciales (usuario y contraseña) en el archivo `application.properties` coincidan con tu configuración local.
+
+- **Git:**  
+  Para clonar el repositorio del proyecto (opcional, pero recomendado).
+
+### Opcional: Ejecutar la Base de Datos con Docker
+
+Si prefieres no instalar PostgreSQL directamente en tu sistema, puedes ejecutar la base de datos en un contenedor Docker. Asegúrate de tener Docker instalado y en ejecución, y luego ejecuta el siguiente comando:
+
+```bash
+docker run --name postgres-db -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=customers -p 5432:5432 -d postgres:latest
+```
+
+Este comando realizará lo siguiente:
+- Creará y ejecutará un contenedor llamado `postgres-db`.
+- Configurará el usuario como `user`, la contraseña como `password` y la base de datos como `customers`.
+- Publicará el puerto 5432 para que tu aplicación pueda conectarse a la base de datos.
+
+### Pasos de Instalación y Ejecución
+
+1. **Clonar el Repositorio:**  
+   Clona el repositorio en tu máquina local:
+   ```bash
+   git clone https://tu-repositorio.git
+   cd nombre-del-proyecto
+   ```
+
+2. **Configurar la Base de Datos:**  
+   - Si no utilizas Docker, instala PostgreSQL y crea la base de datos necesaria (por defecto, `customers`).
+   - Si utilizas Docker, ejecuta el comando proporcionado para iniciar el contenedor.
+   - Modifica el archivo `application.properties` si es necesario, ajustando la URL, usuario y contraseña según tu entorno.
+
+3. **Compilar y Empaquetar el Proyecto:**  
    Ejecuta el siguiente comando para compilar y empaquetar la aplicación:
    ```bash
    ./gradlew build
    ```
 
-2. **Ejecución en Modo de Desarrollo:**  
-   Para levantar el servidor en modo desarrollo (con recarga en caliente) utiliza:
+4. **Ejecutar el Proyecto en Modo de Desarrollo:**  
+   Para ejecutar la aplicación en modo desarrollo (con recarga en caliente):
    ```bash
    ./gradlew quarkusDev
    ```
 
-3. **Ejecución del JAR:**  
+5. **Ejecutar la Aplicación Empaquetada:**  
    Si deseas ejecutar la aplicación empaquetada, utiliza:
    ```bash
    java -jar build/quarkus-app/quarkus-run.jar
    ```
+```
 
 ---
 
