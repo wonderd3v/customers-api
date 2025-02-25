@@ -331,7 +331,7 @@ Si prefieres no instalar PostgreSQL directamente en tu sistema, puedes ejecutar 
 
 ```bash
 docker run --name postgres-db -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=customers -p 5432:5432 -d postgres:latest
-
+```
 
 Este comando realizará lo siguiente:
 - Creará y ejecutará un contenedor llamado `postgres-db`.
