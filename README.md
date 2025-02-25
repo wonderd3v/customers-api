@@ -305,97 +305,7 @@ graph TD
   - 404 Not Found si no se encuentra un cliente con el ID indicado.
   - 400 Bad Request si el formato del ID es inválido.
     
-```
-## Configuración y Despliegue
 
-### Requisitos Previos
-- **Java:** 21 (o la versión configurada en tu toolchain).
-- **Build Tool:** Gradle.
-- **Base de Datos:** PostgreSQL.
-
-### Configuración
-La conexión a la base de datos y otros parámetros se configuran en el archivo `application.properties`:
-
-```properties
-# API RestCountries
-restcountries.api.url=https://restcountries.com/v3.1/alpha/
-
-# Configuración de PostgreSQL
-quarkus.datasource.db-kind=postgresql
-quarkus.datasource.username=user
-quarkus.datasource.password=password
-quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/customers
-
-quarkus.hibernate-orm.database.generation=update
-
-# Configuración del logging
-quarkus.log.console.level=INFO
-quarkus.log.file.enable=true
-quarkus.log.file.path=./logs/application.log
-quarkus.log.file.rotation.max-file-size=10M
-quarkus.log.file.rotation.max-backup-index=3
-```
-
-### Detalle del Build con Gradle
-
-Este es un extracto de tu archivo `build.gradle`:
-
-```gradle
-plugins {
-    id 'java'
-    id 'io.quarkus'
-}
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven {
-        url 'https://maven.repository.redhat.com/ga/'
-    }
-}
-
-dependencies {
-    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    implementation 'io.quarkus:quarkus-rest'
-    implementation 'io.quarkus:quarkus-rest-jackson'
-    implementation 'io.quarkus:quarkus-rest-client'
-    implementation 'io.quarkus:quarkus-arc'
-    implementation 'io.quarkus:quarkus-smallrye-openapi'
-    implementation 'io.quarkus:quarkus-hibernate-orm-panache'
-    implementation 'io.quarkus:quarkus-jdbc-postgresql'
-    implementation 'io.quarkus:quarkus-hibernate-validator'
-    implementation 'org.eclipse.microprofile.rest.client:microprofile-rest-client-api:3.0'
-
-    // Testing dependencies
-    testImplementation 'io.quarkus:quarkus-junit5'
-    testImplementation 'io.quarkus:quarkus-junit5-mockito'
-    testImplementation 'io.rest-assured:rest-assured'
-
-    // Mockito dependencies
-    testImplementation 'org.mockito:mockito-core:5.5.0'
-    testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
-}
-
-group 'com.wonderDev'
-version '1.0-SNAPSHOT'
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
-    }
-}
-
-test {
-    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-    options.compilerArgs.add('-parameters')
-}
-```
-
-```markdown
 ## Requisitos de Instalación y Ejecución
 
 Para poder correr este proyecto, asegúrate de tener instalado y configurado lo siguiente:
@@ -421,7 +331,7 @@ Si prefieres no instalar PostgreSQL directamente en tu sistema, puedes ejecutar 
 
 ```bash
 docker run --name postgres-db -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=customers -p 5432:5432 -d postgres:latest
-```
+
 
 Este comando realizará lo siguiente:
 - Creará y ejecutará un contenedor llamado `postgres-db`.
@@ -459,7 +369,6 @@ Este comando realizará lo siguiente:
    ```bash
    java -jar build/quarkus-app/quarkus-run.jar
    ```
-```
 
 ---
 
