@@ -45,6 +45,40 @@ graph TD
     D --> F
 
 ```
+### Uso de la API de Gentilicios
+
+La aplicación se integra con una API externa para obtener el gentilicio (demonym) correspondiente al país de un cliente. Se utiliza la API [RestCountries](https://restcountries.com) para recuperar esta información a partir del código ISO del país.
+
+**Proceso de integración:**
+
+1. **Configuración:**  
+   La URL base para acceder a la API se define en el archivo `application.properties`:
+   ```properties
+   restcountries.api.url=https://restcountries.com/v3.1/alpha/
+   ```
+
+2. **Implementación:**  
+   La clase `CountryClient` es responsable de realizar la llamada HTTP a la API, utilizando el `ClientBuilder` de Jakarta y Jackson para deserializar la respuesta JSON.  
+   
+   **Ejemplo de uso:**
+   ```java
+   public String getDemonymByCountryCode(String countryCode) {
+       try {
+           var client = ClientBuilder.newClient();
+           var response = client.target(apiUrl + countryCode)
+                   .request(MediaType.APPLICATION_JSON)
+                   .get(String.class);
+
+           List<CountryResponse> countries = objectMapper.readValue(response, new TypeReference<>() {});
+           if (!countries.isEmpty()) {
+               return countries.get(0).getDemonym();
+           }
+       } catch (Exception e) {
+           throw new RuntimeException(e);
+       }
+       return "Unknown";
+   }
+   ```
 
 ```markdown
 ## Endpoints y Operaciones CRUD
@@ -456,6 +490,6 @@ Se utiliza Mockito para simular el comportamiento del repositorio, asegurando la
 
 La solución desarrollada cumple con los requisitos funcionales y no funcionales planteados, proporcionando un sistema robusto, seguro y escalable para la gestión de clientes. La combinación de Quarkus, Hibernate ORM, y la validación de datos garantiza una aplicación eficiente y de fácil mantenimiento.
 
-
 ---
 ```
+
